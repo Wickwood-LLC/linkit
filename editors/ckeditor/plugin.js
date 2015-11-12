@@ -47,8 +47,14 @@
             // Note that WYSIWYG prepends "profile" to the profile name, so we use .substring() to remove the "format".
             format = Drupal.wysiwyg.instances[editor.name].format.substring(6);
           }
-          else if (Drupal.settings.ckeditor) { // If using the CKEditor module
-            format = Drupal.settings.ckeditor.elements[editor.name];
+          else if (Drupal.settings.ckeditor || (Drupal.settings.quickedit && Drupal.settings.quickedit.format)) { // If using the CKEditor module
+            if (Drupal.settings.ckeditor && Drupal.settings.ckeditor.elements && Drupal.settings.ckeditor.elements[editor.name]) {
+              format = Drupal.settings.ckeditor.elements[editor.name];
+            }
+            // It might be quicedit CKeditor!
+            if ((format == null || format === '') && Drupal.settings.quickedit.format) {
+              format = Drupal.settings.quickedit.format;
+            }
           } else {
             alert(Drupal.t('Could not find the Linkit profile.'));
             return;
