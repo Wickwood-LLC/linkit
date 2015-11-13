@@ -216,6 +216,10 @@
     if (CKEDITOR.env.ie && typeof selection !== 'undefined') {
       selection.unlock();
     }
+    // It is a temporary fix to fire snapshot event that also causes
+    // for change event which is required for quickedit to identify the change
+    // in content.
+    editor.fire( 'saveSnapshot' );
   }
 
 })(jQuery);
