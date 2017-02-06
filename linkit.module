@@ -1069,7 +1069,9 @@ function linkit_pre_render_editor_element($element) {
       $field_js = array(
         'data' => array(
           'linkit' => array(
-            'formats' => $profiles_formats,
+            // Convert to object to prevent reordering of numeric indexes
+            // while converted to JS object.
+            'formats' => (object) $profiles_formats,
           ),
         ),
         'type' => 'setting',
