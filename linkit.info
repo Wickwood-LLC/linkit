@@ -21,3 +21,6 @@ files[] = test/linkit_search_plugin.test
 files[] = test/linkit_search_plugin_node.test
 files[] = test/linkit_search_plugin_user.test
 files[] = test/linkit_search_plugin_taxonomy_term.test
+
+version = "7.x-3.5"
+project = "linkit"
