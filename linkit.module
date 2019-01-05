@@ -668,7 +668,7 @@ function linkit_dashboard_form($form, &$form_state) {
   );
 
   // If we have enabled attributes, lets put them inside a fieldset.
-  if (count($active_profile->getEnabledAttributePlugins())) {
+  if ($active_profile->getEnabledAttributePlugins() !== NULL && count($active_profile->getEnabledAttributePlugins())) {
     // Create the container fieldset.
     $form['linkit_container']['linkit_attributes'] = array(
       '#type' => 'fieldset',
