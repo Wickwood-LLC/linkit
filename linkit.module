@@ -1082,20 +1082,32 @@ function linkit_pre_render_editor_element($element) {
   $element['#attached']['library'][] = array('linkit', 'base');
 
   $all_formats = array_keys(filter_formats($user));
+  $all_profiles = linkit_profile_editor_load_all();
   $profiles_formats = array();
   $use_imce = FALSE;
 
+  // Initialize the list of profiles formats.
+  foreach ($all_formats as $format) {
+    $profiles_formats[$format] = array(
+      'profile' => NULL,
+      'enabled_profiles' => array(),
+    );
+  }
+
   // First we need to figure out which formats that the current user can access
   // have active Linkit profiles for them.
-  foreach ($all_formats as $format) {
-    // Load the first profile that is assigned to this text format.
-    $profile = linkit_profile_load_by_format($format);
-
-    if ($profile) {
-      $profiles_formats[$format] = array('profile' => $profile->name);
-
-      if (isset($profile->data['imce']) && $profile->data['imce'] == 1) {
-        $use_imce = TRUE;
+  foreach ($all_profiles as $profile) {
+    if (empty($profile->disabled) && is_array($profile->data['text_formats'])) {
+      foreach (array_filter($profile->data['text_formats']) as $text_format) {
+        if (in_array($text_format, $all_formats)) {
+          if (empty($profiles_formats[$text_format]['profile'])) {
+            $profiles_formats[$text_format]['profile'] = $profile->name;
+          }
+          $profiles_formats[$text_format]['enabled_profiles'][$profile->name] = TRUE;
+          if (isset($profile->data['imce']) && $profile->data['imce'] == 1) {
+            $use_imce = TRUE;
+          }
+        }
       }
     }
   }

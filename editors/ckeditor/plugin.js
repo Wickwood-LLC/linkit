@@ -55,6 +55,8 @@
           }
           // Set profile based on the current text format of this field.
           Drupal.settings.linkit.currentInstance.profile = Drupal.settings.linkit.formats[format].profile;
+          // Set the list of enabled profiles.
+          Drupal.settings.linkit.currentInstance.enabled_profiles = Drupal.settings.linkit.formats[format].enabled_profiles;
           // Set the name of the source field.
           Drupal.settings.linkit.currentInstance.source = editor.name;
           // Set the source type.
