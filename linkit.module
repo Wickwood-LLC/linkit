@@ -415,6 +415,16 @@ function linkit_library() {
     'dependencies' => array(
       array('system', 'ui.dialog'),
       array('system', 'drupal.ajax'),
+      array('linkit', 'dashboard'),
+      array('linkit', 'bac'),
+    ),
+  );
+
+  // Linkit dashboard.
+  $libraries['dashboard'] = array(
+    'title' => 'Linkit dashboard',
+    'js' => array(
+      $path . '/js/linkit.dashboard.js' => array('group' => JS_DEFAULT, 'weight' => 0),
     ),
   );
 
