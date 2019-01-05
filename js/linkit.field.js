@@ -8,7 +8,7 @@
   Drupal.behaviors[behavior] = {
     attach: function(context, settings) {
       // If there is no fields, just stop here.
-      if (undefined === settings.linkit || null === settings.linkit.fields) {
+      if (!('linkit' in settings) || !('fields' in settings.linkit)) {
         return false;
       }
 
