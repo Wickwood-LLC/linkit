@@ -372,8 +372,6 @@ function linkit_element_info_alter(&$types) {
   if (isset($types['text_format']['#pre_render']) && is_array($types['text_format']['#pre_render'])) {
     if (in_array('ckeditor_pre_render_text_format', $types['text_format']['#pre_render'])) {
       $types['text_format']['#pre_render'][] = 'linkit_pre_render_editor_element';
-      // Add the linkit library for the editor.
-      $types['text_format']['#attached']['library'][] = array('linkit', 'ckeditor');
     }
   }
 
@@ -1133,6 +1131,18 @@ function linkit_pre_render_editor_element($element) {
     }
 
     $element['#attached']['js'][] = $field_js;
+
+    if (isset($element['#format']) && isset($element['#pre_render'])) {
+      if (in_array('ckeditor_pre_render_text_format', $element['#pre_render'])) {
+        foreach ($profiles_formats as $format => $profile) {
+          if ($format == $element['#format']) {
+            // Attach the linkit_ckeditor library.
+            $element['#attached']['library'][] = array('linkit', 'ckeditor');
+            break;
+          }
+        }
+      }
+    }
   }
 
   return $element;
