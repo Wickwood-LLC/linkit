@@ -274,7 +274,7 @@ function linkit_field_element_after_build(array $element, array &$form_state) {
   $element['#attached']['js'][] = array(
     'type' => 'setting',
     'data' => array(
-      'linkit' => array('fields' => array($js_settings)),
+      'linkit' => array('fields' => array($element['#id'] => $js_settings)),
     ),
   );
 
