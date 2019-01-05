@@ -154,6 +154,15 @@
   });
 
   /**
+   * Decode HTML entities.
+   */
+  function decodeHtmlEntities(encoded) {
+    var textarea = document.createElement('textarea');
+    textarea.innerHTML = encoded;
+    return textarea.value;
+  }
+
+  /**
    * Create or update a link element in the editor.
    */
   function insertLink(data, editor) {
@@ -167,7 +176,7 @@
       // We have not selected any link element so lets create a new one.
       var range = (selection.getType() === CKEDITOR.SELECTION_ELEMENT) ? selection.getRanges()[0] : selection.getRanges(1)[0];
       if (range.collapsed) {
-        var content = (Drupal.settings.linkit.currentInstance.linkContent) ? Drupal.settings.linkit.currentInstance.linkContent : data.path;
+        var content = (Drupal.settings.linkit.currentInstance.linkContent) ? decodeHtmlEntities(Drupal.settings.linkit.currentInstance.linkContent) : data.path;
         var text = new CKEDITOR.dom.text(content , editor.document);
         range.insertNode(text);
         range.selectNodeContents(text);
