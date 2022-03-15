@@ -108,4 +108,15 @@ class LinkitDrupalLink extends DrupalLink implements CKEditorPluginConfigurableI
     }
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getButtons() {
+    $buttons = parent::getButtons();
+    // Use linkit button icon from D7.
+    $path = $this->getModulePath('linkit') . '/images';
+    $buttons['DrupalLink']['image'] = $path . '/linkit.png';
+    return $buttons;
+  }
+
 }
